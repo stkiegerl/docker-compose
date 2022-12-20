@@ -16,6 +16,8 @@ jobs:
           services: |
             database-server
             cache-server
+        env:
+          MYSQL_VERSION: "8.0"
       - name: Install node dependencies
         run: npm install
       - name: Run node tests
