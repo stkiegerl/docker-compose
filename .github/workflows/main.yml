@@ -1,0 +1,22 @@
+name: Build
+run-name: ${{ github.actor }} Build with Docker Compose
+on:
+  push:
+    paths-ignore:
+      - '*.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # need checkout before using compose-action
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "docker-compose.yml"
+          services: |
+            database-server
+            cache-server
+      - name: Install node dependencies
+        run: npm install
+      - name: Run node tests
+        run: npm test
