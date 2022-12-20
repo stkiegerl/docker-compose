@@ -18,7 +18,12 @@ jobs:
             cache-server
         env:
           MYSQL_VERSION: "8.0"
-      - name: Install node dependencies
-        run: npm install
-      - name: Run node tests
-        run: npm test
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
