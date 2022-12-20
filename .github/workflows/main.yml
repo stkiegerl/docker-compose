@@ -12,6 +12,8 @@ jobs:
       - uses: actions/checkout@v3
       # Run Docker Compose up
       - name: docker compose
+        env:
+          MYSQL_VERSION: "8.0"
         run: docker compose up -d
       # setup node environment
       - uses: actions/setup-node@v3
