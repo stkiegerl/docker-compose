@@ -24,13 +24,13 @@ jobs:
         working-directory: ./app
         run: npm install
       # run current tests in sub-directory
-      - name: run start
+      - name: run test
         working-directory: ./app
-        run: npm start
-      - uses: satak/webrequest-action@master
-        with:
-          url: https://localhost:8080
-          method: GET
+        run: npm test
+#      - uses: satak/webrequest-action@master
+#        with:
+#          url: https://localhost:8080
+#          method: GET
 ########################################################
 #      # need checkout before using compose-action
 #      - uses: actions/checkout@v3
