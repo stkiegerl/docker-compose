@@ -1,4 +1,4 @@
-name: Build
+name: Build Application
 run-name: ${{ github.actor }} Build with Docker Compose
 on:
   push:
