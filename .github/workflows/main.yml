@@ -8,44 +8,45 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Checkout Repository
-      - uses: actions/checkout@v3
-      # Run Docker Compose up
-      - name: docker compose
-        env:
-          MYSQL_VERSION: "8.0"
-        run: docker compose up -d
-      # setup node environment
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      # install current dependencies in sub-directory
-      - name: install dependencies
-        working-directory: ./app
-        run: npm install
-      # run current tests in sub-directory
-      - name: run tests
-        working-directory: ./app
-        run: npm test
-#      # need checkout before using compose-action
+#      # Checkout Repository
 #      - uses: actions/checkout@v3
-#      - uses: isbang/compose-action@v1.4.1
-#        with:
-#          compose-file: "docker-compose.yml"
-#          services: |
-#            database-server
-#            cache-server
+#      # Run Docker Compose up
+#      - name: docker compose
 #        env:
 #          MYSQL_VERSION: "8.0"
-#      - uses: actions/checkout@v3
-#      - name: Use Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v3
+#        run: docker compose up -d
+#      # setup node environment
+#      - uses: actions/setup-node@v3
 #        with:
-#          node-version: ${{ matrix.node-version }}
-#          cache: 'npm'
-#          cache-dependency-path: app/package-lock.json
-#      - run: npm ci
-#        working-directory: './app'
-#      #- run: npm run build --if-present
-#      - run: npm test
-#        working-directory: './app'
+#          node-version: 18
+#      # install current dependencies in sub-directory
+#      - name: install dependencies
+#        working-directory: ./app
+#        run: npm install
+#      # run current tests in sub-directory
+#      - name: run tests
+#        working-directory: ./app
+#        run: npm test
+#######################################################
+      # need checkout before using compose-action
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "docker-compose.yml"
+          services: |
+            database-server
+            cache-server
+        env:
+          MYSQL_VERSION: "8.0"
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+      - run: npm ci
+        working-directory: './app'
+      - run: npm run build --if-present
+      - run: npm test
+        working-directory: './app'
