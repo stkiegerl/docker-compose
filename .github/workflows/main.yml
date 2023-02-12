@@ -27,10 +27,6 @@ jobs:
       - name: run test
         working-directory: ./app
         run: npm test
-#      - uses: satak/webrequest-action@master
-#        with:
-#          url: https://localhost:8080
-#          method: GET
 ########################################################
 #      # need checkout before using compose-action
 #      - uses: actions/checkout@v3
