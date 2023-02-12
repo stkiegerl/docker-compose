@@ -108,7 +108,7 @@ services:
 
 Start docker compose with the new yaml file
 ```shell
-docker compose -f docker-compose.test.yml up
+docker compose -f docker-compose-test.yml up
 ```
 
 Then run the tests locally
