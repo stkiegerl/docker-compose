@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - '*.md'
 env:
-  SERVER_PORT: 8081
+  SERVER_PORT: 8181
 jobs:
   build:
     runs-on: ubuntu-latest
