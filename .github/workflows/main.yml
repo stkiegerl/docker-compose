@@ -4,8 +4,6 @@ on:
   push:
     paths-ignore:
       - '*.md'
-env:
-  SERVER_PORT: 8181
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +26,6 @@ jobs:
       # run current tests in sub-directory
       - name: run test
         working-directory: ./app
-
         run: npm test
 ########################################################
 #      # need checkout before using compose-action
