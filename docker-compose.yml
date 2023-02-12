@@ -3,10 +3,10 @@ version: '3.8'
 services:
   database-server:
     # using .env file to configure e.g. version number or other currently static variables
-    image: mysql:${MYSQL_VERSION}
+    image: mysql:8.0
     container_name: contdel-db-server
     restart: always
-    # setting environment variables is possible within docker-compose.yml
+    # setting environment variables
     environment:
       MYSQL_DATABASE: 'contdel'
       # So you don't have to use root, but you can if you like
@@ -18,16 +18,16 @@ services:
     ports:
       - '3306:3306'
     # Where our data will be persisted
-    volumes:      
+    volumes:
       - ./mysql-data:/var/lib/mysql
       - ./mysql-init-files:/docker-entrypoint-initdb.d
     # check for status for depends_on conditions for api container start = service_healthy
     # otherwise no connection is possible at startup, alternative will be to refactor node implementation
     healthcheck:
-        test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-        timeout: 20s
-        retries: 10
-        start_period: 20s # Estimated time to boot.
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      start_period: 20s # Estimated time to boot.
 
   # using redis for caching server, therefor we will use existing image
   # currently we not need any special configuration, so the docker-compose configuration is simple
@@ -38,7 +38,7 @@ services:
       - '6379:6379'
     restart: always
 
-#   at last we build our own image by using Dockerfile in Sub-Directory
+  # at last we build our own image by using Dockerfile in Sub-Directory
   api:
     container_name: contdel-api-server
     build: ./app
@@ -49,7 +49,7 @@ services:
       database-server:
         condition: service_healthy
     ports:
-      - "8080:8181"
+      - "8087:8181"
     environment:
       SERVER_PORT: 8181
       DB_SERVER: database-server

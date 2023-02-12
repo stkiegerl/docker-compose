@@ -14,7 +14,7 @@ jobs:
       - name: docker compose
         env:
           MYSQL_VERSION: "8.0"
-        run: docker compose -f docker-compose.test.yml up -d
+        run: docker compose up -d
       # setup node environment
       - uses: actions/setup-node@v3
         with:
