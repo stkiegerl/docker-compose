@@ -37,20 +37,3 @@ services:
     ports:
       - '6379:6379'
     restart: always
-
-  # at last we build our own image by using Dockerfile in Sub-Directory
-  api:
-    container_name: contdel-api-server
-    build: ./app
-    # container will be started after dependencies are fulfilled
-    depends_on:
-      cache-server:
-        condition: service_started
-      database-server:
-        condition: service_healthy
-    ports:
-      - "8087:8181"
-    environment:
-      SERVER_PORT: 8181
-      DB_SERVER: database-server
-      CACHE_SERVER: cache-server
